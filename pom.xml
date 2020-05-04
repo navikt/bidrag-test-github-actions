@@ -14,7 +14,7 @@
   <version>0.0.1-SNAPSHOT</version>
 
   <name>bidrag-test-gh-actions</name>
-  <description>Project with purpose only to test inhouse github actions</description>
+  <description>Project with purpose only to test in-house github actions</description>
 
   <properties>
     <java.version>11</java.version>

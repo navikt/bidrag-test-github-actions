@@ -1,4 +1,4 @@
-name: test workflow with git commit
+name: git commit workflow
 on:
   push:
     branches:
@@ -10,19 +10,26 @@ jobs:
     name: test git commit action
     steps:
       - uses: actions/checkout@v2
-      - run: echo "test commit with author from github event" > a-file
-      - run: ls -la && cat a-file
+      - uses: actions/setup-java@v1.3.0
+        with:
+          java-version: 11
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - run: mvn -B -e release:update-versions
       - uses: navikt/bidrag-git/commit@v3
         with:
-          commit_message: en test uten author oppgitt
-          pattern: .
+          commit_message: bump version without author information
+          pattern: pom.xml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: echo "test commit with author" > another-file
-      - run: ls -la && cat another-file
+      - run: mvn -B -e versions:set -DnewVersion=0.0.1-SNAPSHOT
       - uses: navikt/bidrag-git/commit@feature-author
         with:
           author: tester
-          commit_message: en test med author oppgitt
-          pattern: .
+          commit_message: reset version with author information given
+          pattern: pom.xml
           security_token: ${{ secrets.GITHUB_TOKEN }}
