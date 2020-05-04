@@ -1,0 +1,26 @@
+name: test workflow
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  test:
+    runs-on: ubuntu-16.04
+    name: add testing of actions
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo "test commit with author" > new-file
+      - uses: bidrag-git/commit@feature-author
+        with:
+          author: tester
+          commit_message: en test med author oppgitt
+          pattern: new-file
+          security_token: ${{ secrets.GITHUB_TOKEN }}
+      - run: echo "test commit with author from github event" > another-file
+      - uses: bidrag-git/commit@feature-author
+        with:
+          commit_message: en test uten author oppgitt
+          pattern: another-file
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
