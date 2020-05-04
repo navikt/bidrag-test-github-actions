@@ -1,4 +1,4 @@
-name: test docker workflow
+name: docker workflow
 on:
   push:
     branches:
