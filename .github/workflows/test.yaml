@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: echo "test commit with author from github event" > a-file
-      - run: ls -la && echo a-file
+      - run: ls -la && cat a-file
       - uses: navikt/bidrag-git/commit@feature-author
         with:
           commit_message: en test uten author oppgitt
@@ -19,7 +19,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: echo "test commit with author" > another-file
-      - run: ls -la && echo another-file
+      - run: ls -la && cat another-file
       - uses: navikt/bidrag-git/commit@feature-author
         with:
           author: tester
