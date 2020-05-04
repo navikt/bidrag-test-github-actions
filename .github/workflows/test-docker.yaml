@@ -27,6 +27,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: mvn install -B -e
       - run: pwd && ls -al && cat Dockerfile
-      - uses: navikt/bidrag-docker/build@master
+      - uses: navikt/bidrag-docker/build@v1.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
