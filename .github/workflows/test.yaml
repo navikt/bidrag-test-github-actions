@@ -10,12 +10,12 @@ jobs:
     name: add testing of actions
     steps:
       - uses: actions/checkout@v2
-      - run: echo "test commit with author" > new-file
+      - run: echo "test commit with author" > a-file
       - uses: bidrag-git/commit@feature-author
         with:
           author: tester
           commit_message: en test med author oppgitt
-          pattern: new-file
+          pattern: a-file
           security_token: ${{ secrets.GITHUB_TOKEN }}
       - run: echo "test commit with author from github event" > another-file
       - uses: bidrag-git/commit@feature-author
