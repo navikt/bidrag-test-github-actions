@@ -11,14 +11,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: echo "test commit with author" > a-file
-      - uses: bidrag-git/commit@feature-author
+      - uses: navikt/bidrag-git/commit@feature-author
         with:
           author: tester
           commit_message: en test med author oppgitt
           pattern: a-file
           security_token: ${{ secrets.GITHUB_TOKEN }}
       - run: echo "test commit with author from github event" > another-file
-      - uses: bidrag-git/commit@feature-author
+      - uses: navikt/bidrag-git/commit@feature-author
         with:
           commit_message: en test uten author oppgitt
           pattern: another-file
