@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: echo "test commit with author from github event" > a-file
       - run: ls -la && cat a-file
-      - uses: navikt/bidrag-git/commit@feature-author
+      - uses: navikt/bidrag-git/commit@v3
         with:
           commit_message: en test uten author oppgitt
           pattern: .
