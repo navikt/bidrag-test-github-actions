@@ -27,7 +27,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: mvn -B -e versions:set -DnewVersion=0.0.1-SNAPSHOT
-      - uses: navikt/bidrag-git/commit@v3.0.6
+      - uses: navikt/bidrag-git/commit@v3
         with:
           author: tester
           commit_message: reset version with author information given
