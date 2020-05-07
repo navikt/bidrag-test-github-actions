@@ -8,9 +8,10 @@ env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/bidrag-test-gh-actions:${{ github.sha }}
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-16.04
-    name: test docker actions
+    name: build docker image
+
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v1.3.0
@@ -29,4 +30,17 @@ jobs:
       - run: pwd && ls -al && cat Dockerfile
       - uses: navikt/bidrag-docker/build@v1.0.0
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  verify:
+    runs-on: ubuntu-16.04
+    name: verify docker image
+
+    steps:
+      - run: env
+      - name: Check package version
+        run: |
+          manifest=$(curl -X GET https://docker.pkg.github.com/v2/navikt/bidrag-test-gh-actions/bidrag-test-gh-actions/manifests/$GITHUB_SHA -u $GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }} | jq '.')
+          echo $manifest
+        with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
