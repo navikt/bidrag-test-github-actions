@@ -13,6 +13,14 @@ jobs:
     name: build docker image
 
     steps:
+      - name: Check if image manifest is available
+        run: |
+          REQUEST=$(curl --head --request GET https://${IMAGE}/manifests/$GITHUB_SHA -u $GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }})
+          echo "
+          Github head request statistics:
+          ----
+          $REQUEST
+          "
       - uses: navikt/bidrag-docker/verify@feature-exists
         id: dockerimage
         with:
@@ -43,6 +51,14 @@ jobs:
     needs: build
 
     steps:
+      - name: Check if image manifest is available
+        run: |
+          REQUEST=$(curl --head --request GET https://${IMAGE}/manifests/$GITHUB_SHA -u $GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }})
+          echo "
+          Github head request statistics:
+          ----
+          $REQUEST
+          "
       - uses: navikt/bidrag-docker/verify@feature-exists
         id: dockerimage
         with:
