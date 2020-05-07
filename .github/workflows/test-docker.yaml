@@ -35,10 +35,11 @@ jobs:
   verify:
     runs-on: ubuntu-16.04
     name: verify docker image
+    needs: build
 
     steps:
       - run: env
       - name: Check package version
         run: |
-          manifest=$(curl -X GET https://docker.pkg.github.com/v2/navikt/bidrag-test-gh-actions/bidrag-test-gh-actions/manifests/$GITHUB_SHA -u $GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }} | jq '.')
+          manifest=$(curl -X GET https://${IMAGE}/manifests/$GITHUB_SHA -u $GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }} | jq '.')
           echo $manifest
