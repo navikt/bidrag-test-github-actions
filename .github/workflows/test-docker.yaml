@@ -41,5 +41,5 @@ jobs:
       - run: env
       - name: Check package version
         run: |
-          manifest=$(curl -X GET https://${IMAGE}/manifests/$GITHUB_SHA -u $GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }} | jq '.')
+          manifest=$(curl -X GET https://${IMAGE}/manifests/$GITHUB_SHA -u $GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }})
           echo $manifest
