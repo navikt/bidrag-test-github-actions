@@ -42,5 +42,3 @@ jobs:
         run: |
           manifest=$(curl -X GET https://docker.pkg.github.com/v2/navikt/bidrag-test-gh-actions/bidrag-test-gh-actions/manifests/$GITHUB_SHA -u $GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }} | jq '.')
           echo $manifest
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
