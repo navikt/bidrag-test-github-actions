@@ -24,6 +24,7 @@ jobs:
       - uses: navikt/bidrag-docker/exists@feature-exists
         id: dockerimage
         with:
+          image_name: bidrag-test-gh-actions
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: echo image is missing -> ${{ steps.dockerimage.outputs.not_found }}
       - uses: actions/checkout@v2
@@ -62,5 +63,6 @@ jobs:
       - uses: navikt/bidrag-docker/exists@feature-exists
         id: dockerimage
         with:
+          image_name: bidrag-test-gh-actions
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: echo image is missing -> ${{ steps.dockerimage.outputs.not_found }}
