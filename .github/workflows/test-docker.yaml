@@ -8,10 +8,25 @@ env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/bidrag-test-gh-actions:${{ github.sha }}
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-16.04
-    name: test docker actions
+    name: build docker image
+
     steps:
+      - name: Check if image manifest is available
+        run: |
+          REQUEST=$(curl --head --request GET "https://docker.pkg.github.com/v2/$GITHUB_REPOSITORY/$IMAGE_NAME/manifests/$GITHUB_SHA" -u $GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }})
+          echo "
+          Github head request statistics:
+          ----
+          $REQUEST
+          "
+      - uses: navikt/bidrag-docker/exists@v1
+        id: dockerimage
+        with:
+          image_name: bidrag-test-gh-actions
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: echo is image missing -> ${{ steps.dockerimage.outputs.not_found }}
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v1.3.0
         with:
@@ -30,3 +45,24 @@ jobs:
       - uses: navikt/bidrag-docker/build@v1.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  verify:
+    runs-on: ubuntu-16.04
+    name: verify docker image
+    needs: build
+
+    steps:
+      - name: Check if image manifest is available
+        run: |
+          REQUEST=$(curl --head --request GET "https://docker.pkg.github.com/v2/$GITHUB_REPOSITORY/$IMAGE_NAME/manifests/$GITHUB_SHA" -u $GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }})
+          echo "
+          Github head request statistics:
+          ----
+          $REQUEST
+          "
+      - uses: navikt/bidrag-docker/exists@v1
+        id: dockerimage
+        with:
+          image_name: bidrag-test-gh-actions
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: echo is image missing -> ${{ steps.dockerimage.outputs.not_found }}
