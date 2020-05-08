@@ -21,7 +21,7 @@ jobs:
           ----
           $REQUEST
           "
-      - uses: navikt/bidrag-docker/exists@feature-401
+      - uses: navikt/bidrag-docker/exists@v1
         id: dockerimage
         with:
           image_name: bidrag-test-gh-actions
@@ -60,7 +60,7 @@ jobs:
           ----
           $REQUEST
           "
-      - uses: navikt/bidrag-docker/exists@feature-401
+      - uses: navikt/bidrag-docker/exists@v1
         id: dockerimage
         with:
           image_name: bidrag-test-gh-actions
