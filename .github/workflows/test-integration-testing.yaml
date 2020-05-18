@@ -5,9 +5,9 @@ on:
       - '**'
 
 jobs:
-  build:
+  it:
     runs-on: ubuntu-16.04
-    name: build docker image
+    name: run autmated integration testing
 
     steps:
       - uses: actions/cache@v1
