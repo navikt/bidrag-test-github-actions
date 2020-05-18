@@ -40,7 +40,7 @@ jobs:
       - uses: navikt/bidrag-maven/setup@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: mvn install -B -e
+      - run: mvn install -B -e -DskipTests=true
       - run: pwd && ls -al && cat Dockerfile
       - uses: navikt/bidrag-docker/build@v1.0.0
         env:

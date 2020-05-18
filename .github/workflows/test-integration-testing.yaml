@@ -1,0 +1,23 @@
+name: automated integration testing
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-16.04
+    name: build docker image
+
+    steps:
+      - uses: navikt/bidrag-maven/cucumber-backend@feature-it
+        with:
+          do_not_fail: true
+          maven_command: test
+          maven_image: maven:3.6.3-jdk-13
+          optional_maven_command: versions:display-property-updates
+          username: j104364
+          test_user: z992903
+        env:
+          USER_AUTHENTICATION: ${{ secrets.USER_AUTHENTICATION }}
+          TEST_USER_AUTHENTICATION: ${{ secrets.TEST_USER_AUTHENTICATION }}
