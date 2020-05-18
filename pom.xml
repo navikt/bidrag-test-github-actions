@@ -10,7 +10,7 @@
 
   <groupId>no.nav.bidrag</groupId>
   <artifactId>bidrag-test-gh-actions</artifactId>
-  <version>0.0.2-SNAPSHOT</version>
+  <version>0.0.1-SNAPSHOT</version>
 
   <name>bidrag-test-gh-actions</name>
   <description>Project with purpose only to test in-house github actions</description>
