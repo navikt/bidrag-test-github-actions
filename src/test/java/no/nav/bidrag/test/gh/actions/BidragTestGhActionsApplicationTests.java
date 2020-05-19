@@ -1,4 +1,4 @@
-package no.nav.bidrag.bidrag.test.gh.actions;
+package no.nav.bidrag.test.gh.actions;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,5 +9,4 @@ class BidragTestGhActionsApplicationTests {
   @Test
   void contextLoads() {
   }
-
 }

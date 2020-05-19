@@ -2,7 +2,7 @@ name: git commit workflow
 on:
   push:
     branches:
-      - '**'
+      - master
 
 jobs:
   test:
@@ -21,14 +21,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - run: mvn -B -e release:update-versions
-      - uses: navikt/bidrag-git/commit@v3
+      - uses: navikt/bidrag-git/commit@master
         with:
           commit_message: bump version without author information
           pattern: pom.xml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: mvn -B -e versions:set -DnewVersion=0.0.1-SNAPSHOT
-      - uses: navikt/bidrag-git/commit@v3
+      - uses: navikt/bidrag-git/commit@master
         with:
           author: tester
           commit_message: reset version with author information given

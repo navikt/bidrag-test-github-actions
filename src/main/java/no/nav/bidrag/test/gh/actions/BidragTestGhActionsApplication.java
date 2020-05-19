@@ -1,4 +1,4 @@
-package no.nav.bidrag.bidrag.test.gh.actions;
+package no.nav.bidrag.test.gh.actions;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
