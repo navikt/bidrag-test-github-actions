@@ -2,7 +2,7 @@ name: automated integration testing
 on:
   push:
     branches:
-      - '**'
+      - none # this action will clone bidrag-cucumber-backend and run it on the self-hosted runner which will not run tests for this project :(
 
 jobs:
   it:
