@@ -6,19 +6,10 @@ on:
 
 jobs:
   it:
-    runs-on: ubuntu-16.04
+    runs-on: self-hosted
     name: run autmated integration testing
 
     steps:
-      - uses: actions/cache@v1
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-      - uses: navikt/bidrag-maven/setup@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: navikt/bidrag-maven/cucumber-backend@feature-it
         with:
           do_not_fail: true
