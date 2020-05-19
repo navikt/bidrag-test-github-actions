@@ -15,7 +15,7 @@ jobs:
           do_not_fail: true
           maven_command: test
           maven_image: maven:3.6.3-jdk-13
-          optional_maven_command: versions:display-property-updates
+          optional_maven_command: cluecumber-report:reporting
           username: j104364
           test_user: z992903
         env:
