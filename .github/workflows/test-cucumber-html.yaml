@@ -10,6 +10,7 @@ jobs:
     name: parse json from cucumber index.html
 
     steps:
+      - uses: actions/checkout@v2
       - name: passed
         run: |
             LABEL=$(jq '.labels[0]' .github/resources/testfile.json | sed 's/"//g')
