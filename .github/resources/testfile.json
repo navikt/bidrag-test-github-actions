@@ -1,0 +1,21 @@
+{
+  "labels": [
+    "passed",
+    "failed",
+    "skipped"
+  ],
+  "datasets": [
+    {
+      "data": [
+        59,
+        57,
+        0
+      ],
+      "backgroundColor": [
+        "rgba(40, 167, 69, 1.000)",
+        "rgba(220, 53, 69, 1.000)",
+        "rgba(255, 193, 7, 1.000)"
+      ]
+    }
+  ]
+}
