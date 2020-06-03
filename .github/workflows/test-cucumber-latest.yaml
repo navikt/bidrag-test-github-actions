@@ -17,7 +17,7 @@ jobs:
       - name: failed
         run: |
           jq '.[].elements[].steps[].result.status' .github/resources/cucumber.json | grep -c failed || true > failed
-      - uses: bidrag-gh-pages/it-reports-latest@feature-report
+      - uses: bidrag-gh-pages/cucumber-latest@feature-report
         id: report
         with:
           relative_filepath: resources/cucumber.json
