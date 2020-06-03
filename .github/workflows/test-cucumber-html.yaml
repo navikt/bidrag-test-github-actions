@@ -12,8 +12,8 @@ jobs:
     steps:
       - name: passed
         run: |
-        export LABEL=$(jq '.labels[0]' .github/resources/testfile.json | sed 's/"//g')
-        export NUMBER=$(jq '.datasets[0].data[0]' .github/resources/testfile.json)
-        echo "$LABEL: $NUMBER"
+            LABEL=$(jq '.labels[0]' .github/resources/testfile.json | sed 's/"//g')
+            NUMBER=$(jq '.datasets[0].data[0]' .github/resources/testfile.json)
+            echo "$LABEL: $NUMBER"
       - name: failures
         run: jq '.labels[1],.datasets[0].data[1]' .github/resources/testfile.json
