@@ -12,11 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: passed
-        run: |
-          jq '.[].elements[].steps[].result.status' .github/resources/cucumber.json | grep -c passed || true > passed
+        run: echo $(jq '.[].elements[].steps[].result.status' .github/resources/cucumber.json | grep -c passed || true) > passed
       - name: failed
-        run: |
-          jq '.[].elements[].steps[].result.status' .github/resources/cucumber.json | grep -c failed || true > failed
+        run: echo $(jq '.[].elements[].steps[].result.status' .github/resources/cucumber.json | grep -c failed || true) > failed
       - uses: navikt/bidrag-gh-pages/cucumber-latest@feature-report
         id: report
         with:
