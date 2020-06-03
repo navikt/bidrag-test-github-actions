@@ -25,14 +25,14 @@ jobs:
       - name: output results
         run: |
           ls -la
-          PASSED=${{ steps.report.outputs.steps_passed }}
+          export PASSED=${{ steps.report.outputs.steps_passed }}
           echo "passed tests comparison: $PASSED=$(cat passed)"
 
           if [[ $PASSED -ne $(cat passed) ]]; then
             exit 1;
           fi
 
-          FAILED=${{ steps.report.outputs.steps_failed }}
+          export FAILED=${{ steps.report.outputs.steps_failed }}
           echo "failed tests comparison: $FAILED=$(cat failed)"
 
           if [[ $FAILED -ne $(cat failed) ]]; then
