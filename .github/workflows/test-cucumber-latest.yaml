@@ -21,9 +21,10 @@ jobs:
         id: report
         with:
           relative_filepath: resources/cucumber.json
-          json_path: .[].elements[].steps[].result.status
+          json_path: '.[].elements[].steps[].result.status'
       - name: output results
         run: |
+          ls -la
           PASSED=${{ steps.report.outputs.steps_passed }}
           echo "passed tests comparison: $PASSED=$(cat passed)"
 
