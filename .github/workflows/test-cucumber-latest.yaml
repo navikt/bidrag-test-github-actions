@@ -1,0 +1,39 @@
+name: cucumber status
+on:
+  push:
+    branches:
+      - feature-report
+
+jobs:
+  json:
+    runs-on: ubuntu-16.04
+    name: parse json, count results with/without action and compare results
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: passed
+        run: |
+          jq '.[].elements[].steps[].result.status' .github/resources/cucumber.json | grep -c passed || true > passed
+      - name: failed
+        run: |
+          jq '.[].elements[].steps[].result.status' .github/resources/cucumber.json | grep -c failed || true > failed
+      - uses: bidrag-gh-pages/it-reports-latest@feature-report
+        id: report
+        with:
+          relative_filepath: resources/cucumber.json
+          json_path: .[].elements[].steps[].result.status
+      - name: output results
+        run: |
+          PASSED=${{ steps.report.outputs.steps_passed }}
+          echo "passed tests comparison: $PASSED=$(cat passed)"
+
+          if [[ $PASSED -ne $(cat passed) ]]; then
+            exit 1;
+          fi
+
+          FAILED=${{ steps.report.outputs.steps_failed }}
+          echo "failed tests comparison: $FAILED=$(cat failed)"
+
+          if [[ $FAILED -ne $(cat failed) ]]; then
+            exit 1;
+          fi
