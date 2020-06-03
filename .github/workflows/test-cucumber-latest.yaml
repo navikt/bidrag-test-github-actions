@@ -2,7 +2,7 @@ name: cucumber status
 on:
   push:
     branches:
-      - feature-report
+      - master
 
 jobs:
   json:
@@ -24,14 +24,14 @@ jobs:
         run: |
           ls -la
           export PASSED=${{ steps.report.outputs.steps_passed }}
-          echo "passed tests comparison: $PASSED=$(cat passed)"
+          echo "Compare passed tests: $PASSED=$(cat passed)"
 
           if [[ $PASSED -ne $(cat passed) ]]; then
             exit 1;
           fi
 
           export FAILED=${{ steps.report.outputs.steps_failed }}
-          echo "failed tests comparison: $FAILED=$(cat failed)"
+          echo "Compare failed tests: $FAILED=$(cat failed)"
 
           if [[ $FAILED -ne $(cat failed) ]]; then
             exit 1;
