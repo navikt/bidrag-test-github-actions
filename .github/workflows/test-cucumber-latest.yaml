@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - feature-reports
 
 jobs:
   report-page:
@@ -44,4 +45,9 @@ jobs:
           failed: ${{ steps.report.outputs.steps_failed }}
           project_name: bidrag-test-github-actions
           ghp_folder: src/test/generated
+      - run: cat ${{ steps.status.outputs.edited_page }}
+      - uses: navikt/bidrag-gh-pages/reports@feature-reports.v2
+        with:
+          pages_address: https://navikt.github.io/bidrag-dev
+          github_page: ${{ steps.status.outputs.edited_page }}
       - run: cat ${{ steps.status.outputs.edited_page }}
