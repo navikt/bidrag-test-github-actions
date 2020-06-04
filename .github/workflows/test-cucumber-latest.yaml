@@ -43,5 +43,6 @@ jobs:
           github_page: README.md
           passed: ${{ steps.report.outputs.steps_passed }}
           failed: ${{ steps.report.outputs.steps_failed }}
+          project_name: bidrag-test-github-actions
           ghp_folder: src/test/generated
       - run: cat ${{ steps.status.outputs.edited_page }}
