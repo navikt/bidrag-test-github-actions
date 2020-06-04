@@ -43,5 +43,10 @@ jobs:
           passed: ${{ steps.report.outputs.steps_passed }}
           failed: ${{ steps.report.outputs.steps_failed }}
           project_name: bidrag-test-github-actions
-          ghp_folder: src/test/generated
+          ghp_folder: src/docs
+      - run: cat ${{ steps.status.outputs.edited_page }}
+      - uses: navikt/bidrag-gh-pages/reports@master
+        with:
+          pages_address: https://navikt.github.io/bidrag-dev
+          github_page_path: ${{ steps.status.outputs.edited_page }}
       - run: cat ${{ steps.status.outputs.edited_page }}
