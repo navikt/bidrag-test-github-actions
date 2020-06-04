@@ -40,7 +40,7 @@ jobs:
       - uses: navikt/bidrag-gh-pages/cucumber-status@feature-status
         id: status
         with:
-          front_page: README.md
+          github_page: README.md
           passed: ${{ steps.report.outputs.steps_passed }}
           failed: ${{ steps.report.outputs.steps_failed }}
           ghp_folder: src/test/generated
