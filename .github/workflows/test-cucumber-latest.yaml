@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - master
-      - feature-status
 
 jobs:
   report-page:
@@ -37,7 +36,7 @@ jobs:
           if [[ $FAILED -ne $(cat failed) ]]; then
             exit 1;
           fi
-      - uses: navikt/bidrag-gh-pages/cucumber-status@feature-status
+      - uses: navikt/bidrag-gh-pages/cucumber-status@master
         id: status
         with:
           github_page: README.md
