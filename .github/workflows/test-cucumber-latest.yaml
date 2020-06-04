@@ -1,11 +1,11 @@
-name: cucumber status
+name: cucumber report
 on:
   push:
     branches:
       - master
 
 jobs:
-  json:
+  report-page:
     runs-on: ubuntu-16.04
     name: parse json, count results with/without action and compare results
 
@@ -36,3 +36,12 @@ jobs:
           if [[ $FAILED -ne $(cat failed) ]]; then
             exit 1;
           fi
+      - uses: navikt/bidrag-gh-pages/cucumber-status@master
+        id: status
+        with:
+          github_page: README.md
+          passed: ${{ steps.report.outputs.steps_passed }}
+          failed: ${{ steps.report.outputs.steps_failed }}
+          project_name: bidrag-test-github-actions
+          ghp_folder: src/test/generated
+      - run: cat ${{ steps.status.outputs.edited_page }}
