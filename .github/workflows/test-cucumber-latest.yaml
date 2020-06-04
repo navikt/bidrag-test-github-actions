@@ -49,5 +49,5 @@ jobs:
       - uses: navikt/bidrag-gh-pages/reports@feature-reports.v2
         with:
           pages_address: https://navikt.github.io/bidrag-dev
-          github_page: ${{ steps.status.outputs.edited_page }}
+          github_page_path: ${{ steps.status.outputs.edited_page }}
       - run: cat ${{ steps.status.outputs.edited_page }}
