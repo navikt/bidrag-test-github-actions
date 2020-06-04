@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - master
-      - feature-reports
+      - feature-reports.v2
 
 jobs:
   report-page:
