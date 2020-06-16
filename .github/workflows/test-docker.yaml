@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - feature-docker
 
 env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/bidrag-test-gh-actions:${{ github.sha }}
@@ -66,3 +67,8 @@ jobs:
           image_name: bidrag-test-gh-actions
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: echo is docker image not found -> ${{ steps.dockerimage.outputs.not_found }}
+      - name: fail if not found
+        if: {{ env.NOT_FOUND }} == 'true'
+        run: exit 1;
+        with:
+          NOT_FOUND: ${{ steps.dockerimage.outputs.not_found }}
