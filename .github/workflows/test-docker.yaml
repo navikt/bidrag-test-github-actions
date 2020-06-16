@@ -75,8 +75,8 @@ jobs:
         with:
           NOT_FOUND: ${{ steps.dockerimage.outputs.not_found }}
       - name: Run when found
-        run: echo found the docker image
-        if: {{ env.NOT_FOUND }} != 'true'
+        run: echo "docker image - $IMAGE - is found"
+        if: {{ env.NOT_FOUND != "true"}}'
         with:
           NOT_FOUND: ${{ steps.dockerimage.outputs.not_found }}
 
