@@ -2,7 +2,6 @@ name: docker workflow
 on:
   push:
     branches:
-      - master
       - feature-docker
 
 env:
