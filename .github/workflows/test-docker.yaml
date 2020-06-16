@@ -2,7 +2,7 @@ name: docker workflow
 on:
   push:
     branches:
-      - feature-docker
+      - master
 
 env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/bidrag-test-gh-actions:${{ github.sha }}
