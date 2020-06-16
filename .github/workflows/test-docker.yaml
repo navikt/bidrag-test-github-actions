@@ -67,8 +67,16 @@ jobs:
           image_name: bidrag-test-gh-actions
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: echo is docker image not found -> ${{ steps.dockerimage.outputs.not_found }}
-      - name: fail if not found
-        if: {{ env.NOT_FOUND }} == 'true'
-        run: exit 1;
+      - name: Fail when not found
+        run: |
+          if [ "$NOT_FOUND" == "true" ]; then
+            exit 1;
+          fi
         with:
           NOT_FOUND: ${{ steps.dockerimage.outputs.not_found }}
+      - name: run when found
+        if: {{ env.NOT_FOUND }} != 'true'
+        run: echo found the docker image
+        with:
+          NOT_FOUND: ${{ steps.dockerimage.outputs.not_found }}
+
