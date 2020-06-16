@@ -74,5 +74,5 @@ jobs:
           fi
       - name: Run when found
         run: echo "docker image - $IMAGE - is found"
-        if: {{ env.NOT_FOUND != 'true'}}
+        if: env.NOT_FOUND != 'true'
 
