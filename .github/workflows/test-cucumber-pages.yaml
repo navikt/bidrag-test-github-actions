@@ -7,7 +7,7 @@ on:
 jobs:
   report-page:
     runs-on: ubuntu-16.04
-    name: parse json, count results with/without action and compare results
+    name: parse json, count results with and without action and compare results and log files/folders
 
     steps:
       - uses: actions/checkout@v2
