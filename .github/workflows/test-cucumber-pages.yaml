@@ -45,7 +45,7 @@ jobs:
       - uses: navikt/bidrag-gh-pages/cucumber-status@master
         id: status
         with:
-          github_page: README.md
+          github_page: front-page.md
           passed: ${{ steps.report.outputs.steps_passed }}
           failed: ${{ steps.report.outputs.steps_failed }}
           project_name: bidrag-test-github-actions
@@ -57,5 +57,5 @@ jobs:
           github_page_path: ${{ steps.status.outputs.edited_page }}
       - run: cat ${{ steps.status.outputs.edited_page }}
       - run: echo "cat docs/latest/generated-report.html"
-             cat docs/latest/generated-report.html
              ls -la docs/generated
+             cat docs/latest/generated-report.html
