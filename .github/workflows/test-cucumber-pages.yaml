@@ -57,4 +57,5 @@ jobs:
           github_page_path: ${{ steps.status.outputs.edited_page }}
       - run: cat ${{ steps.status.outputs.edited_page }}
       - run: ls -al docs/generated
+      - run: ls -al docs/latest
       - run: cat docs/latest/generated-report.html
