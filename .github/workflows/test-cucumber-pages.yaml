@@ -2,7 +2,7 @@ name: cucumber report
 on:
   push:
     branches:
-      - master
+      - feature/gh-pages
 
 jobs:
   report-page:
@@ -15,10 +15,16 @@ jobs:
         run: echo $(jq '.[].elements[].steps[].result.status' .github/resources/cucumber.json | grep -c passed || true) > passed
       - name: failed
         run: echo $(jq '.[].elements[].steps[].result.status' .github/resources/cucumber.json | grep -c failed || true) > failed
+      - uses: navikt/bidrag-gh-pages/move@master
+        with:
+          folder_move_from: resources/generated-report
+          front_page: front-page.md
+          latest_cucumber_json: resources/cucumber.json
+          project_where_to_move: bidrag-test-github-actions
       - uses: navikt/bidrag-gh-pages/cucumber-latest@master
         id: report
         with:
-          relative_filepath: resources/cucumber.json
+          relative_filepath: docs/latest/cucumber.json
           json_path: '.[].elements[].steps[].result.status'
       - name: output results
         run: |
@@ -50,3 +56,5 @@ jobs:
           pages_address: https://navikt.github.io/bidrag-dev
           github_page_path: ${{ steps.status.outputs.edited_page }}
       - run: cat ${{ steps.status.outputs.edited_page }}
+      - run: echo "cat docs/latest/generated-report.html"
+             cat docs/latest/generated-report.html
