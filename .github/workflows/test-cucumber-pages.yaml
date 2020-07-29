@@ -42,12 +42,13 @@ jobs:
           if [[ $FAILED -ne $(cat failed) ]]; then
             exit 1;
           fi
-      - uses: navikt/bidrag-gh-pages/cucumber-status@master
+      - uses: navikt/bidrag-gh-pages/cucumber-status@feature/gh-pages
         id: status
         with:
           github_page: front-page.md
           passed: ${{ steps.report.outputs.steps_passed }}
           failed: ${{ steps.report.outputs.steps_failed }}
+          timestamp: ${{ steps.report.outputs.time_moved }}
           project_name: bidrag-test-github-actions
           ghp_folder: docs
       - run: cat ${{ steps.status.outputs.edited_page }}
