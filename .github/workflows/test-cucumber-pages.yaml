@@ -56,6 +56,5 @@ jobs:
           pages_address: https://navikt.github.io/bidrag-dev
           github_page_path: ${{ steps.status.outputs.edited_page }}
       - run: cat ${{ steps.status.outputs.edited_page }}
-      - run: echo "cat docs/latest/generated-report.html"
-             ls -la docs/generated
-             cat docs/latest/generated-report.html
+      - run: ls -al docs/generated
+      - run: cat docs/latest/generated-report.html
