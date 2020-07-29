@@ -58,3 +58,4 @@ jobs:
       - run: cat ${{ steps.status.outputs.edited_page }}
       - run: echo "cat docs/latest/generated-report.html"
              cat docs/latest/generated-report.html
+             ls -la docs/generated
