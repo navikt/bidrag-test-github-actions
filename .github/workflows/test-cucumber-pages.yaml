@@ -15,7 +15,7 @@ jobs:
         run: echo $(jq '.[].elements[].steps[].result.status' .github/resources/cucumber.json | grep -c passed || true) > passed
       - name: failed
         run: echo $(jq '.[].elements[].steps[].result.status' .github/resources/cucumber.json | grep -c failed || true) > failed
-      - uses: navikt/bidrag-gh-pages/cucumber-move@feature/gh-pages
+      - uses: navikt/bidrag-gh-pages/cucumber-move@master
         with:
           folder_move_from: resources/generated-report
           front_page: front-page.md
@@ -42,7 +42,7 @@ jobs:
           if [[ $FAILED -ne $(cat failed) ]]; then
             exit 1;
           fi
-      - uses: navikt/bidrag-gh-pages/cucumber-status@feature/gh-pages
+      - uses: navikt/bidrag-gh-pages/cucumber-status@master
         id: status
         with:
           github_page: front-page.md
