@@ -2,7 +2,7 @@ name: cucumber report
 on:
   push:
     branches:
-      - feature/gh-pages
+      - master
 
 jobs:
   report-page:
