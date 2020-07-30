@@ -54,9 +54,8 @@ jobs:
       - run: cat ${{ steps.status.outputs.edited_page }}
       - uses: navikt/bidrag-gh-pages/reports@master
         with:
-          pages_address: https://navikt.github.io/bidrag-dev
+          pages_address: https://navikt.github.io/bidrag-test-github-actions
           github_page_path: ${{ steps.status.outputs.edited_page }}
       - run: cat ${{ steps.status.outputs.edited_page }}
       - run: ls -al docs/generated
       - run: ls -al docs/latest
-      - run: cat docs/latest/generated-report.html
