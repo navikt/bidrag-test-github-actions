@@ -2,7 +2,7 @@ name: test use nais applications
 on:
   push:
     branches:
-      - feature/nais-apps
+      - feature-nais-apps
 
 jobs:
   test-nais-apps:
