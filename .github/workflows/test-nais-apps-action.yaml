@@ -1,0 +1,30 @@
+name: test use nais applications
+on:
+  push:
+    branches:
+      - feature/nais-apps
+
+jobs:
+  test-nais-apps:
+    runs-on: ubuntu-16.04
+    name: gh-pages nais applications
+
+    steps:
+      - uses: navikt/bidrag-gh-pages/cucumber-apps@feature/nais-apps
+        with:
+          nais-apps:
+            - bidrag-hendelse-producer
+            - bidrag-hendelse
+        id: apps
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - run |
+        cd "$NAIS_APPS_PATH"
+        cd bidrag-hendelse
+        [ -f q0.json ] || exit 1;
+        [ -f q1.json ] || exit 1;
+        cd ../bidrag-hendelse-producer
+        [ -f q0.json ] || exit 1;
+        [ -f q1.json ] || exit 1;
+      env
+        NAIS_APPS_PATH: ${{ steps.apps.output.nais-apps-folder }}
