@@ -13,17 +13,15 @@ jobs:
       - uses: navikt/bidrag-gh-pages/cucumber-apps@feature/nais-apps
         id: apps
         with:
-          nais-apps:
-            - bidrag-hendelse-producer
-            - bidrag-hendelse
+          nais-apps: '{"apps":["bidrag-hendelse-producer","bidrag-hendelse"]}'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: |
           cd "$NAIS_APPS_PATH"
-          cd bidrag-hendelse
+          cd bidrag-hendelse/nais
           [ -f q0.json ] || exit 1;
           [ -f q1.json ] || exit 1;
-          cd ../bidrag-hendelse-producer
+          cd ../../bidrag-hendelse-producer/nais
           [ -f q0.json ] || exit 1;
           [ -f q1.json ] || exit 1;
         env:
