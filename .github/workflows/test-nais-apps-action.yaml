@@ -7,10 +7,10 @@ on:
 jobs:
   test-nais-apps:
     runs-on: ubuntu-16.04
-    name: gh-pages nais applications
+    name: bidrag-integration nais applications
 
     steps:
-      - uses: navikt/bidrag-gh-pages/cucumber-apps@feature/nais-apps
+      - uses: navikt/bidrag-integration/nais-apps@feature/apps
         id: apps
         with:
           nais-apps: '{"apps":["bidrag-hendelse-producer","bidrag-dokument-arkiv","bidrag-dokument"]}'
