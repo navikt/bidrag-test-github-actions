@@ -2,7 +2,7 @@ name: git commit workflow
 on:
   push:
     branches:
-      - feature/link-pgs
+      - master
 
 jobs:
   test:
