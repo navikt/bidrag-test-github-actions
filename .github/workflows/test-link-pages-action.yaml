@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          $FILE_PATH=$(find . -type f -name "link-pages.md" | sed 's;./;$PWD/;')
+          FILE_PATH=$(find . -type f -name "link-pages.md" | sed "s;./;$PWD/;")
           echo ::set-output name=page::$FILE_PATH
         id: path
       - uses: navikt/bidrag-gh-pages/link-pages@master
