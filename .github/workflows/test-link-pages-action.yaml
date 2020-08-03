@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: echo ::set-output name=page::$(find -type f -name "link-pages.md" | sed 's;./;$PWD/;')
         id: path
-      - uses: navikt/bidrag-integration/link-pages@master
+      - uses: navikt/bidrag-gh-pages/link-pages@master
         with:
           link_pages: test/resources
           page_path: ${{ steps.path.output.page }}
