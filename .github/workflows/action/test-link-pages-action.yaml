@@ -2,7 +2,7 @@ name: test link pages action
 on:
   push:
     branches:
-      - master
+      - feature/links
 
 jobs:
   test:
