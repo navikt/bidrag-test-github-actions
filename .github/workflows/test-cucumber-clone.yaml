@@ -2,7 +2,7 @@ name: test cucumber-clone action
 on:
   push:
     branches:
-      - feature/cucumber-clone
+      - master
 
 jobs:
   test:
