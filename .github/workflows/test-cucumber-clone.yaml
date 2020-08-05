@@ -13,6 +13,7 @@ jobs:
       - uses: navikt/bidrag-integration/cucumber-clone@feature/clone-cucumber
       - name: verify cloned resources
         run: |
+          set -x
           cd $RUNNER_WORKSPACE
           CLONED_FOLDER=$(find . -type f -name "pom.xml" | grep bidrag-cucumber-backend/pom.xml)
 
