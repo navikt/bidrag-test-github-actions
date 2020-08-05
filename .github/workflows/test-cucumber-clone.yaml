@@ -15,7 +15,7 @@ jobs:
         run: |
           set -x
           cd $RUNNER_WORKSPACE
-          CLONED_FOLDER=$(find . -type f -name "pom.xml" | grep bidrag-cucumber-backend/pom.xml)
+          CLONED_FOLDER=$(find . -type f -name "pom.xml" | grep bidrag-cucumber-backend/pom.xml | sed 's;/pom.xml;;')
 
           ls -al
           [ -d "$CLONED_FOLDER" ] || exit 1
