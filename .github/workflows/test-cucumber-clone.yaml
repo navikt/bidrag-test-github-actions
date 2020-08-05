@@ -14,5 +14,8 @@ jobs:
       - name: verify cloned resources
         run: |
           cd $RUNNER_WORKSPACE
+          ls -al
           [ -d bidrag-cucumber-backend ] || exit 1
+          ls -al bidrag-cucumber-backend
+          ls -al bidrag-cucumber-backend/simple
           [ -d bidrag-cucumber-backend/simple/bidrag-test-github-actions ] || exit 1
