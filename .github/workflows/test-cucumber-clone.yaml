@@ -10,7 +10,7 @@ jobs:
     name: test cucumber-clone action
 
     steps:
-      - uses: navikt/bidrag-integration/cucumber-clone@master
+      - uses: navikt/bidrag-integration/cucumber-clone@feature/clone-cucumber
       - name: verify cloned resources
         run: |
           cd $RUNNER_WORKSPACE
