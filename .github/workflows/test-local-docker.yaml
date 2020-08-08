@@ -1,0 +1,62 @@
+name: test local docker image
+on:
+  push:
+    branches:
+      - master
+
+env:
+  IMAGE: docker.pkg.github.com/${{ github.repository }}/bidrag-test-gh-actions:${{ github.sha }}
+
+jobs:
+  build:
+    runs-on: self-hosted
+    name: build docker image
+
+    steps:
+      - name: Check if docker image exists with docker inspect
+        run: |
+          IS_FOUND="true"
+          docker image inspect $IMAGE || IS_FOUND="false"
+          echo docker image is found: $IS_FOUND
+      - uses: navikt/bidrag-docker/local-exists@master
+        id: dockerimage
+        with:
+          image_id: ${{ env.IMAGE }}
+      - name: Fail when found
+        run: |
+          if [ "$NOT_FOUND" == "false" ]; then
+            exit 1;
+          fi
+        env:
+          NOT_FOUND: ${{ steps.dockerimage.outputs.not_found }}
+      - run: sudo rm -rf *
+      - uses: actions/checkout@v2
+      - run: docker run --rm -v $PWD:/usr/src/mymaven -v ~/.m2:/root/.m2 -w /usr/src/mymaven maven:3.6.3-jdk-14 mvn install -B -e -DskipTests=true
+      - run: pwd && ls -al && cat Dockerfile
+      - uses: navikt/bidrag-docker/build@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  verify:
+    runs-on: self-hosted
+    name: verify docker image
+    needs: build
+
+    steps:
+      - name: Check if docker image exists with docker inspect
+        run: |
+          IS_FOUND="true"
+          docker image inspect $IMAGE || IS_FOUND="false"
+          echo docker image is found: $IS_FOUND
+      - uses: navikt/bidrag-docker/local-exists@master
+        id: dockerimage
+        with:
+          image_id: ${{ env.IMAGE }}
+      - run: echo is docker image not found -> ${{ steps.dockerimage.outputs.not_found }}
+      - name: Fail when not found
+        run: |
+          if [ "$NOT_FOUND" == "true" ]; then
+            exit 1;
+          fi
+        env:
+          NOT_FOUND: ${{ steps.dockerimage.outputs.not_found }}

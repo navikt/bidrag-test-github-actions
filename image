@@ -1,0 +1,113 @@
+[
+    {
+        "Id": "sha256:519129fab259565defca4af840d2422b9186b160dd6fc051efb9ad9d74a2190f",
+        "RepoTags": [
+            "maven:3.6.3-jdk-13"
+        ],
+        "RepoDigests": [
+            "maven@sha256:1690b88f8d7f12456c141a2d5360d8d086821e335a14e4d735b4c23163ee3ed7"
+        ],
+        "Parent": "",
+        "Comment": "",
+        "Created": "2020-03-10T23:08:10.135848879Z",
+        "Container": "9b6b1810350a8ca06f197250ae37a68c4b98c6c483a8b6f8fca461a632e92c98",
+        "ContainerConfig": {
+            "Hostname": "9b6b1810350a",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/java/openjdk-13/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=en_US.UTF-8",
+                "JAVA_HOME=/usr/java/openjdk-13",
+                "JAVA_VERSION=13.0.2",
+                "JAVA_URL=https://download.java.net/java/GA/jdk13.0.2/d4173c853231432d94f001e99d882ca7/8/GPL/openjdk-13.0.2_linux-x64_bin.tar.gz",
+                "JAVA_SHA256=acc7a6aabced44e62ec3b83e3b5959df2b1aa6b3d610d58ee45f0c21a7821a71",
+                "MAVEN_HOME=/usr/share/maven",
+                "MAVEN_CONFIG=/root/.m2"
+            ],
+            "Cmd": [
+                "/bin/sh",
+                "-c",
+                "#(nop) ",
+                "CMD [\"mvn\"]"
+            ],
+            "ArgsEscaped": true,
+            "Image": "sha256:63e185a4052ca2538b806bb002a1e6d352617f95c0c5b1bffceeca8dab3b759a",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": [
+                "/usr/local/bin/mvn-entrypoint.sh"
+            ],
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "DockerVersion": "18.09.7",
+        "Author": "",
+        "Config": {
+            "Hostname": "",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/java/openjdk-13/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=en_US.UTF-8",
+                "JAVA_HOME=/usr/java/openjdk-13",
+                "JAVA_VERSION=13.0.2",
+                "JAVA_URL=https://download.java.net/java/GA/jdk13.0.2/d4173c853231432d94f001e99d882ca7/8/GPL/openjdk-13.0.2_linux-x64_bin.tar.gz",
+                "JAVA_SHA256=acc7a6aabced44e62ec3b83e3b5959df2b1aa6b3d610d58ee45f0c21a7821a71",
+                "MAVEN_HOME=/usr/share/maven",
+                "MAVEN_CONFIG=/root/.m2"
+            ],
+            "Cmd": [
+                "mvn"
+            ],
+            "ArgsEscaped": true,
+            "Image": "sha256:63e185a4052ca2538b806bb002a1e6d352617f95c0c5b1bffceeca8dab3b759a",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": [
+                "/usr/local/bin/mvn-entrypoint.sh"
+            ],
+            "OnBuild": null,
+            "Labels": null
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 501787555,
+        "VirtualSize": 501787555,
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/5aae8fc0f8dc93e68dd361914f2ed98ed458e209b01d10052cf88e0c5b70b42c/diff:/var/lib/docker/overlay2/b524810b9745a494d983aac31dc027096946b6388a069e44ac667922b64297f3/diff:/var/lib/docker/overlay2/dae48da5721da20446931c844172b76e9734ad6e7d335558a99ec7d10e9b0d66/diff:/var/lib/docker/overlay2/834cdc30a12e1d7e96a0c2f9553f91b805997509863572946801dcb5decd203a/diff:/var/lib/docker/overlay2/64cd09e2b82dcb9c6e46ec1178de500438f4cf8a6a5d93f4fd9884d5e7ec6a43/diff",
+                "MergedDir": "/var/lib/docker/overlay2/16a6e7e580d452063272969a09da48e14b3cca2474d5d9bf00a9eb27c734f22a/merged",
+                "UpperDir": "/var/lib/docker/overlay2/16a6e7e580d452063272969a09da48e14b3cca2474d5d9bf00a9eb27c734f22a/diff",
+                "WorkDir": "/var/lib/docker/overlay2/16a6e7e580d452063272969a09da48e14b3cca2474d5d9bf00a9eb27c734f22a/work"
+            },
+            "Name": "overlay2"
+        },
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:12a9cd7d069efacffcc15421d1e64e8be7b8e39dafe8ac7e9badb1acf465796c",
+                "sha256:93c304238ab8646f4f05cc7011e2bc70ada95bfc2e9a57ca42b2185005ec0f12",
+                "sha256:b8cb43830a769beba06f363206e38d53f47955f332b4a4f78269c4e1e8c959da",
+                "sha256:7a3cabf6113f31d47e7461a29ff330932a3a252287c0e7419d362d0c6c398801",
+                "sha256:40a0ffa86832cdf52a031fdb9029a7cc5433e302ec219eaa0b653b51b471346e",
+                "sha256:18c366a39650886df6d5fa4ddee72935aa4e8aac0cc846ed1a461253a519b6f2"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "0001-01-01T00:00:00Z"
+        }
+    }
+]
