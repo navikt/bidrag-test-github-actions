@@ -2,22 +2,22 @@ name: automated integration testing
 on:
   push:
     branches:
-      - none # this action will clone bidrag-cucumber-backend and run it on the self-hosted runner which will not run tests for this project :(
+      - feature/cucumber
 
 jobs:
   it:
-    runs-on: self-hosted
-    name: run autmated integration testing
+    runs-on: ubuntu-16.04
+    name: run autmated integration testing without failing the run when failures
 
     steps:
-      - uses: navikt/bidrag-maven/cucumber-backend@feature-it
+      - uses: navikt/bidrag-maven/cucumber-backend@feature/test
         with:
           do_not_fail: true
           maven_command: test
           maven_image: maven:3.6.3-jdk-13
-          optional_maven_command: cluecumber-report:reporting
-          username: j104364
-          test_user: z992903
+          username: someUser
+          test_user: someTestUser
+          github_project: bidrag-test-github-actions
         env:
-          USER_AUTHENTICATION: ${{ secrets.USER_AUTHENTICATION }}
-          TEST_USER_AUTHENTICATION: ${{ secrets.TEST_USER_AUTHENTICATION }}
+          USER_AUTHENTICATION: somePassword
+          TEST_USER_AUTHENTICATION: someTestUserPassword

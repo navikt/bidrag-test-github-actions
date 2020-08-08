@@ -1,6 +1,5 @@
 # language: no
-@bidrag-sjablon
-Egenskap: test indegration testing
+Egenskap: test integration testing
 
   Tester at cucumber action kan kjøre tester som feiler uten at bygg feiler.
 
