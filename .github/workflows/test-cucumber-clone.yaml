@@ -2,7 +2,7 @@ name: test cucumber-clone action
 on:
   push:
     branches:
-      - feature/cloning
+      - master
 
 jobs:
   test:
@@ -10,7 +10,7 @@ jobs:
     name: test cucumber-clone action
 
     steps:
-      - uses: navikt/bidrag-integration/cucumber-clone@feature/fix101
+      - uses: navikt/bidrag-integration/cucumber-clone@master
       - name: verify cloned resources
         run: |
           set -x
@@ -22,7 +22,7 @@ jobs:
           ls -al "$CLONED_FOLDER"
           ls -al "$CLONED_FOLDER/simple"
           [ -d "$CLONED_FOLDER/simple/bidrag-test-github-actions" ] || exit 1
-      - uses: navikt/bidrag-integration/cucumber-clone@feature/fix101
+      - uses: navikt/bidrag-integration/cucumber-clone@master
         with:
           folder_nais_apps: alternativ
       - name: verify cloned resources with alternative folder
