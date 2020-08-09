@@ -1,4 +1,4 @@
-name: automated integration testing
+name: test-cucumber-backend
 on:
   push:
     branches:
@@ -10,7 +10,8 @@ jobs:
     name: run autmated integration testing without failing the run when failures
 
     steps:
-      - uses: navikt/bidrag-maven/cucumber-backend@feature/test
+      - uses: actions/checkout@v2
+      - uses: navikt/bidrag-maven/cucumber-backend@master
         with:
           do_not_fail: true
           maven_command: test
