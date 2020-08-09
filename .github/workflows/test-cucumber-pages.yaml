@@ -2,7 +2,7 @@ name: cucumber report
 on:
   push:
     branches:
-      - master
+      - feature/args-n-path
 
 jobs:
   report-page:
@@ -15,13 +15,13 @@ jobs:
         run: echo $(jq '.[].elements[].steps[].result.status' src/test/resources/cucumber.json | grep -c passed || true) > passed
       - name: failed
         run: echo $(jq '.[].elements[].steps[].result.status' src/test/resources/cucumber.json | grep -c failed || true) > failed
-      - uses: navikt/bidrag-gh-pages/cucumber-move@master
+      - uses: navikt/bidrag-gh-pages/cucumber-move@feature/args-n-path
         with:
           folder_move_from: resources/generated-report
           front_page: front-page.md
           latest_cucumber_json: resources/cucumber.json
           project_where_to_move: bidrag-test-github-actions
-      - uses: navikt/bidrag-gh-pages/cucumber-latest@master
+      - uses: navikt/bidrag-gh-pages/cucumber-latest@feature/args-n-path
         id: report
         with:
           relative_filepath: docs/latest/cucumber.json
@@ -42,7 +42,7 @@ jobs:
           if [[ $FAILED -ne $(cat failed) ]]; then
             exit 1;
           fi
-      - uses: navikt/bidrag-gh-pages/cucumber-status@master
+      - uses: navikt/bidrag-gh-pages/cucumber-status@feature/args-n-path
         id: status
         with:
           github_page: front-page.md
@@ -52,10 +52,10 @@ jobs:
           project_name: bidrag-test-github-actions
           ghp_folder: docs
       - run: cat ${{ steps.status.outputs.edited_page }}
-      - uses: navikt/bidrag-gh-pages/reports@master
+      - uses: navikt/bidrag-gh-pages/reports@feature/args-n-path
         with:
           pages_address: https://navikt.github.io/bidrag-test-github-actions
-          github_page_path: ${{ steps.status.outputs.edited_page }}
+          path_github_page: ${{ steps.status.outputs.path_edited_page }}
       - run: cat ${{ steps.status.outputs.edited_page }}
       - run: ls -al docs/generated
       - run: ls -al docs/latest
