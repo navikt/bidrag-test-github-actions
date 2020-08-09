@@ -2,7 +2,7 @@ name: test-cucumber-backend
 on:
   push:
     branches:
-      - feature/cucumber
+      - master
 
 jobs:
   it:
