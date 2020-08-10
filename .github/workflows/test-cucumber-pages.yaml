@@ -16,6 +16,7 @@ jobs:
       - name: failed
         run: echo $(jq '.[].elements[].steps[].result.status' src/test/resources/cucumber.json | grep -c failed || true) > failed
       - uses: navikt/bidrag-integration/cucumber-move@feature/args-n-path
+        id: move
         with:
           folder_move_from: resources/generated-report
           front_page: front-page.md
@@ -51,11 +52,25 @@ jobs:
           timestamp: ${{ steps.report.outputs.time_moved }}
           project_name: bidrag-test-github-actions
           ghp_folder: docs
-      - run: cat ${{ steps.status.outputs.edited_page }}
       - uses: navikt/bidrag-integration/reports@feature/args-n-path
         with:
           pages_address: https://navikt.github.io/bidrag-test-github-actions
           path_github_page: ${{ steps.status.outputs.path_edited_page }}
-      - run: cat ${{ steps.status.outputs.edited_page }}
+      - name: check actions output from workflow
+        run: |
+          PATH_EDITED_PAGE=${{ steps.status.outputs.path_edited_page }}
+          GENERATED_FOLDER=${{ steps.move.outputs.generated_folder }}
+
+          echo "path   : $( cat $PATH_EDITED_PAGE )"
+          echo "folder : $GENERATED_FOLDER"
+
+          if [ -z "$PATH_EDITED_PAGE" ]; then
+            exit 1
+          fi
+
+          if [ -z "$GENERATED_FOLDER" ]; then
+            exit 1
+          fi
       - run: ls -al docs/generated
+      - run: ls -al docs/generated/${{ steps.move.outputs.generated_folder }}
       - run: ls -al docs/latest
