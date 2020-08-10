@@ -61,8 +61,8 @@ jobs:
           PATH_EDITED_PAGE=${{ steps.status.outputs.path_edited_page }}
           GENERATED_FOLDER=${{ steps.move.outputs.generated_folder }}
 
-          echo "path   : $( cat $PATH_EDITED_PAGE )"
-          echo "folder : $GENERATED_FOLDER"
+          echo "edited page --- $( cat $PATH_EDITED_PAGE )"
+          echo "generated folder : $GENERATED_FOLDER"
 
           if [ -z "$PATH_EDITED_PAGE" ]; then
             exit 1
