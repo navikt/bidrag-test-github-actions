@@ -7,7 +7,7 @@ on:
 jobs:
   report-page:
     runs-on: ubuntu-16.04
-    name: parse json, count results with and without action and compare results and log files/folders
+    name: test a move of a cucumber report and the result for how to generate github pages
 
     steps:
       - uses: actions/checkout@v2
@@ -16,12 +16,31 @@ jobs:
       - name: failed
         run: echo $(jq '.[].elements[].steps[].result.status' src/test/resources/cucumber.json | grep -c failed || true) > failed
       - uses: navikt/bidrag-integration/cucumber-move@master
-        id: move
         with:
           folder_move_from: resources/generated-report
           front_page: front-page.md
           latest_cucumber_json: resources/cucumber.json
           project_where_to_move: bidrag-test-github-actions
+      - run: |
+          cd $RUNNER_WORKSPACE/bidrag-test-github-actions/docs/latest
+          cat bidrag-dev.json
+
+          TIMESTAMP=$( jq '.timestamp' bidrag-dev.json )
+          FOLDER=$( jq '.foldername' bidrag-dev.json )
+
+          if [[ -z $TIMESTAMP ]]; then
+            exit 1
+          fi
+
+          echo "Timestamp: $TIMESTAMP"
+
+          if [[ -z FOLDER ]]; then
+            exit 1
+          fi
+
+          echo "Folder   : $FOLDER"
+          echo ::set-output name=folder::$FOLDER
+        id: json
       - uses: navikt/bidrag-integration/cucumber-latest@master
         id: report
         with:
@@ -59,7 +78,7 @@ jobs:
       - name: check actions output from workflow
         run: |
           PATH_EDITED_PAGE=${{ steps.status.outputs.path_edited_page }}
-          GENERATED_FOLDER=${{ steps.move.outputs.generated_folder }}
+          GENERATED_FOLDER=${{ steps.json.outputs.folder }}
 
           echo "edited page --- $( cat $PATH_EDITED_PAGE )"
           echo "generated folder : $GENERATED_FOLDER"
@@ -72,5 +91,5 @@ jobs:
             exit 1
           fi
       - run: ls -al docs/generated
-      - run: ls -al docs/generated/${{ steps.move.outputs.generated_folder }}
+      - run: ls -al docs/generated/${{ steps.json.outputs.folder }}
       - run: ls -al docs/latest
