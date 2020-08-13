@@ -2,7 +2,7 @@ name: test local docker image
 on:
   push:
     branches:
-      - master
+      - main
 
 env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/bidrag-test-gh-actions:${{ github.sha }}
@@ -18,7 +18,7 @@ jobs:
           IS_FOUND="true"
           docker image inspect $IMAGE || IS_FOUND="false"
           echo docker image is found: $IS_FOUND
-      - uses: navikt/bidrag-docker/local-exists@master
+      - uses: navikt/bidrag-docker/local-exists@main
         id: dockerimage
         with:
           image_id: ${{ env.IMAGE }}
@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: docker run --rm -v $PWD:/usr/src/mymaven -v ~/.m2:/root/.m2 -w /usr/src/mymaven maven:3.6.3-jdk-14 mvn install -B -e -DskipTests=true
       - run: pwd && ls -al && cat Dockerfile
-      - uses: navikt/bidrag-docker/build@master
+      - uses: navikt/bidrag-docker/build@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -48,7 +48,7 @@ jobs:
           IS_FOUND="true"
           docker image inspect $IMAGE || IS_FOUND="false"
           echo docker image is found: $IS_FOUND
-      - uses: navikt/bidrag-docker/local-exists@master
+      - uses: navikt/bidrag-docker/local-exists@main
         id: dockerimage
         with:
           image_id: ${{ env.IMAGE }}
