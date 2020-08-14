@@ -1,0 +1,63 @@
+name: test-maven-setup-action
+on:
+  push:
+    branches:
+      - feature/setup
+
+jobs:
+  test:
+    runs-on: ubuntu-16.04
+    name: test maven-setup action
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1.3.0
+        with:
+          java-version: '13'
+      - uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - run: env | sort
+      - uses: navikt/bidrag-maven/setup@feature/setup
+        with:
+          repositories: maven-releases=http://repo.releases,snapshots=https://repo.snapshots
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: mvn help:effective-pom
+      - name: Verify .m2 home
+        run: |
+          POM=$(cat ~/.m2/settings.xml)
+          echo $POM
+          COUNT_REPOS=$(echo $POM | grep -c http::/repo || true)
+          COUNT_NAME_MAVEN=$(echo $POM | grep -c maven-releases || true)
+          COUNT_NAME_SNAP=$(echo $POM | grep -c snapshots || true)
+          COUNT_ACTOR=$(echo $POM | grep -c $GITHUB_ACTOR || true)
+          COUNT_TOKEN=$(echo $POM | grep -c $GITHUB_TOKEN || true)
+
+          if [ $COUNT_REPOS -ne 2; then
+            echo ::error:: could not find 2 repositories in the settings.xml
+          fi
+
+          if [ $COUNT_NAME_MAVEN -ne 1 ]; then
+            echo ::error:: could not find name maven-releases
+            exit 1
+          fi
+
+          if [ $COUNT_NAME_SNAP -ne 1; then
+            echo ::error:: could not find name snapshots
+          fi
+
+          if [ $COUNT_ACTOR -ne 2 ]; then
+            echo ::error:: could not find username for each repository
+            exit 1
+          fi
+
+          if [ $COUNT_TOKEN -ne 2 ]; then
+            echo ::error:: could not find token for each repository
+            exit 1
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
