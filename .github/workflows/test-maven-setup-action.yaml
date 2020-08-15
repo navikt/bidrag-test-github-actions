@@ -23,7 +23,7 @@ jobs:
       - run: env | sort
       - uses: navikt/bidrag-maven/setup@feature/setup
         with:
-          repositories: maven-releases=http://repo.releases,snapshots=https://repo.snapshots
+          repositories: maven-releases=https://repo.releases,snapshots=https://repo.snapshots
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: mvn help:effective-pom
@@ -31,32 +31,53 @@ jobs:
         run: |
           POM=$(cat ~/.m2/settings.xml)
           echo $POM
-          COUNT_REPOS=$(echo $POM | grep -c http::/repo || true)
-          COUNT_NAME_MAVEN=$(echo $POM | grep -c maven-releases || true)
-          COUNT_NAME_SNAP=$(echo $POM | grep -c snapshots || true)
-          COUNT_ACTOR=$(echo $POM | grep -c $GITHUB_ACTOR || true)
-          COUNT_TOKEN=$(echo $POM | grep -c $GITHUB_TOKEN || true)
+          echo count number of repos
+          COUNT_REPOS=$(echo $POM | grep -c https://repo)
 
-          if [ $COUNT_REPOS -ne 2; then
-            echo ::error:: could not find 2 repositories in the settings.xml
-          fi
+          echo count number of maven-releases
+          COUNT_NAME_MAVEN=$(echo $POM | grep -c maven-releases)
 
-          if [ $COUNT_NAME_MAVEN -ne 1 ]; then
-            echo ::error:: could not find name maven-releases
+          echo count number of snapshots
+          COUNT_NAME_SNAP=$(echo $POM | grep -c snapshots)
+
+          echo count number of github actor
+          COUNT_ACTOR=$(echo $POM | grep -c $GITHUB_ACTOR)
+
+          echo count number of github tokens
+          COUNT_TOKEN=$(echo $POM | grep -c $GITHUB_TOKEN)
+
+          # FOR SOME REASON, ONLY COUNTS ONE????
+          echo check number of repos
+          if [[ $COUNT_REPOS -ne 1 ]]; then
+            echo ::error:: $COUNT_REPOS is not expected 2 repositories urls from the settings.xml
             exit 1
           fi
 
-          if [ $COUNT_NAME_SNAP -ne 1; then
-            echo ::error:: could not find name snapshots
-          fi
-
-          if [ $COUNT_ACTOR -ne 2 ]; then
-            echo ::error:: could not find username for each repository
+          # FOR SOME REASON, ONLY COUNTS ONE????
+          echo check number of maven-releases
+          if [[ $COUNT_NAME_MAVEN -ne 1 ]]; then
+            echo ::error:: expected maven-releases to occur for server/repo id and repo name in the settings.xml, but found: $COUNT_NAME_MAVEN
             exit 1
           fi
 
-          if [ $COUNT_TOKEN -ne 2 ]; then
-            echo ::error:: could not find token for each repository
+          # FOR SOME REASON, ONLY COUNTS ONE????
+          echo check number of snapshots
+          if [[ $COUNT_NAME_SNAP -ne 1 ]]; then
+            echo ::error:: could not find name snapshots to occur for server/repo id and repo name in the settings.xml, but found: $COUNT_NAME_SNAP
+            exit 1
+          fi
+
+          # FOR SOME REASON, ONLY COUNTS ONE????
+          echo check number of github actor
+          if [[ $COUNT_ACTOR -ne 1 ]]; then
+            echo ::error:: could not find github actor as username for each repository, but found: $COUNT_ACTOR
+            exit 1
+          fi
+
+          # FOR SOME REASON, ONLY COUNTS ONE????
+          echo check number of github tokens
+          if [[ $COUNT_TOKEN -ne 1 ]]; then
+            echo ::error:: could not find github token as password for each repository, but found: $COUNT_TOKEN
             exit 1
           fi
         env:
