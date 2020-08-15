@@ -2,7 +2,7 @@ name: test-maven-setup-action
 on:
   push:
     branches:
-      - feature/setup
+      - main
 
 jobs:
   test:
@@ -21,7 +21,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - run: env | sort
-      - uses: navikt/bidrag-maven/setup@feature/setup
+      - uses: navikt/bidrag-maven/setup@main
         with:
           repositories: maven-releases=https://repo.releases,snapshots=https://repo.snapshots
         env:
