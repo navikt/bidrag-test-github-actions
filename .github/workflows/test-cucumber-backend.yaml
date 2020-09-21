@@ -2,7 +2,7 @@ name: test-cucumber-backend
 on:
   push:
     branches:
-      - main
+      - feature/cuce
 
 jobs:
   it:
@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: navikt/bidrag-maven/cucumber-backend@main
+      - uses: navikt/bidrag-maven/cucumber-backend@feature/cuce
         with:
           do_not_fail: true
           maven_command: test
