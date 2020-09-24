@@ -31,7 +31,7 @@ jobs:
           NOT_FOUND: ${{ steps.dockerimage.outputs.not_found }}
       - run: sudo rm -rf *
       - uses: actions/checkout@v2
-      - run: docker run --rm -v $PWD:/usr/src/mymaven -v ~/.m2:/root/.m2 -w /usr/src/mymaven maven:3.6.3-jdk-14 mvn install -B -e -DskipTests=true
+      - run: docker run --rm -v $PWD:/usr/src/mymaven -v ~/.m2:/root/.m2 -w /usr/src/mymaven maven:3.6.3-openjdk-15 mvn install -B -e -DskipTests=true
       - run: pwd && ls -al && cat Dockerfile
       - uses: navikt/bidrag-docker/build@main
         env:
