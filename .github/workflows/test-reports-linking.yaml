@@ -1,0 +1,38 @@
+name: test reports linking
+on:
+  push:
+    branches:
+      - feature/reports
+
+jobs:
+  test:
+    runs-on: ubuntu-16.04
+    name: test cucumber-clone action
+
+    steps:
+      - uses: navikt/bidrag-integration/reports@main
+      - name: verify cloned resources
+        run: |
+          set -x
+          cd $RUNNER_WORKSPACE
+          CLONED_FOLDER=$(find . -type f -name "pom.xml" | grep bidrag-cucumber-backend/pom.xml | sed 's;/pom.xml;;')
+
+          ls -al
+          [ -d "$CLONED_FOLDER" ] || exit 1
+          ls -al "$CLONED_FOLDER"
+          ls -al "$CLONED_FOLDER/simple"
+          [ -d "$CLONED_FOLDER/simple/bidrag-test-github-actions" ] || exit 1
+      - uses: navikt/bidrag-integration/cucumber-clone@main
+        with:
+          folder_nais_apps: alternativ
+      - name: verify cloned resources with alternative folder
+        run: |
+          set -x
+          cd $RUNNER_WORKSPACE
+          CLONED_FOLDER=$(find . -type f -name "pom.xml" | grep bidrag-cucumber-backend/pom.xml | sed 's;/pom.xml;;')
+
+          ls -al
+          [ -d "$CLONED_FOLDER" ] || exit 1
+          ls -al "$CLONED_FOLDER"
+          ls -al "$CLONED_FOLDER/alternativ"
+          [ -d "$CLONED_FOLDER/alternativ/bidrag-test-github-actions" ] || exit 1
