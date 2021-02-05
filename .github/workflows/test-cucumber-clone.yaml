@@ -20,8 +20,8 @@ jobs:
           ls -al
           [ -d "$CLONED_FOLDER" ] || exit 1
           ls -al "$CLONED_FOLDER"
-          ls -al "$CLONED_FOLDER/simple"
-          [ -d "$CLONED_FOLDER/simple/bidrag-test-github-actions" ] || exit 1
+          ls -al "$CLONED_FOLDER/apps"
+          [ -d "$CLONED_FOLDER/apps/bidrag-test-github-actions" ] || exit 1
       - uses: navikt/bidrag-integration/cucumber-clone@main
         with:
           folder_nais_apps: alternativ
