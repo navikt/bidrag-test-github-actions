@@ -25,6 +25,7 @@ jobs:
         id: dockerimage
         with:
           image_name: bidrag-test-gh-actions
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: echo is docker image not found -> ${{ steps.dockerimage.outputs.not_found }}
       - uses: actions/checkout@v2
