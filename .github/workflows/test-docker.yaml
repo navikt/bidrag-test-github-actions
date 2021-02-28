@@ -2,7 +2,7 @@ name: docker workflow
 on:
   push:
     branches:
-      - feature/testing
+      - main
 
 env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/bidrag-test-gh-actions:${{ github.sha }}
@@ -21,7 +21,7 @@ jobs:
           ----
           $REQUEST
           "
-      - uses: navikt/bidrag-docker/exists@feature/testing
+      - uses: navikt/bidrag-docker/exists@main
         id: dockerimage
         with:
           image_name: bidrag-test-gh-actions
@@ -61,7 +61,7 @@ jobs:
           ----
           $REQUEST
           "
-      - uses: navikt/bidrag-docker/exists@feature/testing
+      - uses: navikt/bidrag-docker/exists@main
         id: dockerimage
         with:
           image_name: bidrag-test-gh-actions
