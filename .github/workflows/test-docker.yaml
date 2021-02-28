@@ -2,7 +2,7 @@ name: docker workflow
 on:
   push:
     branches:
-      - main
+      - feature/testing
 
 env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/bidrag-test-gh-actions:${{ github.sha }}
@@ -21,7 +21,7 @@ jobs:
           ----
           $REQUEST
           "
-      - uses: navikt/bidrag-docker/exists@main
+      - uses: navikt/bidrag-docker/exists@feature/testing
         id: dockerimage
         with:
           image_name: bidrag-test-gh-actions
@@ -61,10 +61,11 @@ jobs:
           ----
           $REQUEST
           "
-      - uses: navikt/bidrag-docker/exists@main
+      - uses: navikt/bidrag-docker/exists@feature/testing
         id: dockerimage
         with:
           image_name: bidrag-test-gh-actions
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: echo is docker image not found -> ${{ steps.dockerimage.outputs.not_found }}
       - name: Fail when not found
