@@ -2,7 +2,7 @@ name: docker workflow
 on:
   push:
     branches:
-      - feature/docker-exists
+      - main
 
 env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/bidrag-test-gh-actions:${{ github.sha }}
@@ -21,7 +21,7 @@ jobs:
           ----
           $REQUEST
           "
-      - uses: navikt/bidrag-docker/exists@feature/http
+      - uses: navikt/bidrag-docker/exists@main
         id: dockerimage
         with:
           image_name: bidrag-test-gh-actions
@@ -43,7 +43,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: mvn install -B -e -DskipTests=true
       - run: pwd && ls -al && cat Dockerfile
-      - uses: navikt/bidrag-docker/build@feature/http
+      - uses: navikt/bidrag-docker/build@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
