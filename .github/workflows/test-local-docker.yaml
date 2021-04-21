@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: mvn install -B -e -DskipTests=true
       - run: pwd && ls -al && cat Dockerfile
-      - uses: navikt/bidrag-docker/build@main
+      - uses: navikt/bidrag-docker/build@feature/podman
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
