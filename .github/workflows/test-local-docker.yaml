@@ -2,7 +2,7 @@ name: test local docker image
 on:
   push:
     branches:
-      - feature/docker
+      - main
 
 env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/bidrag-test-gh-actions:${{ github.sha }}
@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: mvn install -B -e -DskipTests=true
       - run: pwd && ls -al && cat Dockerfile
-      - uses: navikt/bidrag-docker/build@feature/podman
+      - uses: navikt/bidrag-docker/build@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
