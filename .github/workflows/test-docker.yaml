@@ -9,7 +9,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     name: build docker image
 
     steps:
@@ -48,7 +48,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   verify:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     name: verify docker image
     needs: build
 

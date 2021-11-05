@@ -6,7 +6,7 @@ on:
 
 jobs:
   report-page:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     name: test a move of a cucumber report and the result for how to generate github pages
 
     steps:
